@@ -1,0 +1,63 @@
+﻿/* Bytion Form Style */
+
+/* Form */
+#bytion {
+	width:100%; 
+	clear:both; 
+	margin:0; 
+	padding:0; 
+	border:0;
+}
+
+/* Paragraph tag */
+#bytion p {
+	margin:0 0 10px; 
+	padding:0;
+}
+
+/* Label and input fields */
+#bytion label {
+	font-size:1em; 
+	text-transform:none; 
+	font-weight:normal; 
+	display:none; 
+} 
+#bytion input {
+	font-size:1em; 
+	-webkit-appearance:none; 
+	-moz-appearance:none;
+}
+#bytion_name, #bytion_email {
+	width:100%;
+}
+#bytion_message {
+	width:90%;
+}
+
+/* Submit button */
+#bytion_send {
+	width:100%;
+}
+
+/* Input fields error */
+#bytion input.error {
+	border-color:#ff0000; 
+	color:#ff0000;
+}
+
+/* Label text error */
+#bytion span.error {
+	color:#ff0000;
+}
+
+/* Hide element */
+#bytion .hide {
+	display:none;
+}
+
+/* Success or fail message */
+.bytion-info {
+	margin:20px 0; 
+	font-style:italic; 
+	font-size:1.20em;
+}
