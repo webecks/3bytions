@@ -3,12 +3,12 @@
 // disable direct access
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
-} 
+}
 
 // The shortcode
 function bytion_form_shortcode($bytion_atts) {
 	$bytion_atts = shortcode_atts( array( 
-		"email_to" => get_bloginfo('admin_email'),
+		"email_to" => get_bloginfo('admin_email'), // Send the submitted data to admin email
 		"label_name" => __('Name', 'bytion-assessment'),
 		"label_email" => __('Email', 'bytion-assessment'),
 		"label_submit" => __('Submit', 'bytion-assessment'),
@@ -51,23 +51,25 @@ function bytion_form_shortcode($bytion_atts) {
 			$error_class['form_email'] = true;
 			$error = true;
 		}
+
 		$form_data['form_email'] = $value;
+		$form_data['form_subject'] = "Bytion Submission Form";
 
-
-		// Send the form to admin
+		// Send the form to admin & save to database
 		if ($error == false) {
-
+			// Send the submitted data to admin email
 			$to = $bytion_atts['email_to'];
 			if ($bytion_atts['hide_subject'] != "true") {
 				$subject = "(".get_bloginfo('name').") " . $form_data['form_subject'];
 			} else {
 				$subject = get_bloginfo('name');
 			}
-			$message = $form_data['form_name'] . "\r\n\r\n" . $form_data['form_email'] . "\r\n\r\n" . $form_data['form_message'] . "\r\n\r\n" . sprintf( esc_attr__( 'IP: %s', 'bytion-assessment' ), bytion_get_the_ip() ); 
+			$message = $form_data['form_name'] . "\r\n\r\n" . $form_data['form_email'] . "\r\n\r\n" . sprintf( esc_attr__( 'IP: %s', 'bytion-assessment' ), bytion_get_the_ip() ); 
 			$headers = "Content-Type: text/plain; charset=UTF-8" . "\r\n";
 			$headers .= "Content-Transfer-Encoding: 8bit" . "\r\n";
 			$headers .= "From: ".$form_data['form_name']." <".$form_data['form_email'].">" . "\r\n";
 			$headers .= "Reply-To: <".$form_data['form_email'].">" . "\r\n";
+		
 			if( wp_mail($to, $subject, $message, $headers) ) { 
 				$result = $bytion_atts['message_success'];
 				$sent = true;
@@ -75,6 +77,9 @@ function bytion_form_shortcode($bytion_atts) {
 				$result = $bytion_atts['message_error'];
 				$fail = true;
 			}		
+			
+			// Save the submitted data to the custom database table
+			bytion_save_db($form_data);
 		}
 	}
 
@@ -112,4 +117,19 @@ function bytion_form_shortcode($bytion_atts) {
 } 
 add_shortcode('bytion_form', 'bytion_form_shortcode');
 
+/**
+ * Grab the form data and Save it to custom database table
+*/
+function bytion_save_db($form_data) {
+	global $wpdb;
+
+	$form_name		= esc_attr($form_data['form_name']);
+	$form_email   = esc_attr($form_data['form_email']);
+	$table_name 	= $wpdb->prefix . 'bytion_form';
+
+	$wpdb->insert( $table_name, array( 
+			'form_name'		=> $form_name,
+			'form_email'  => $form_email
+	) );
+}
 ?>

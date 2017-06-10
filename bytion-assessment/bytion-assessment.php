@@ -38,6 +38,7 @@ function bytion_get_the_ip() {
 }
 
 // include form and cpt files
+include 'bytion-form-create-db.php';
 include 'bytion-form.php';
 include 'bytion-cpt.php';
 
