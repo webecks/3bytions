@@ -1,0 +1,10 @@
+/**
+* CSS for Bytion Admin Dashboard
+**/
+
+#bytion_wrapper .dashicons {
+	font-size: 30px;
+	line-height: 30px;
+	width: 34px;
+	height: auto;
+}

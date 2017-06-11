@@ -12,7 +12,7 @@ function bytion_register_cpt_books() {
 	$labels = array(
 		"name" => __( 'BOOKS', 'bytion-assessment' ),
 		"singular_name" => __( 'BOOK', 'bytion-assessment' ),
-		"menu_name" => __( 'My Books', 'bytion-assessment' ),
+		"menu_name" => __( 'BOOKS', 'bytion-assessment' ),
 		"all_items" => __( 'All Books', 'bytion-assessment' ),
 		"add_new" => __( 'Add New', 'bytion-assessment' ),
 		"add_new_item" => __( 'Add New Book', 'bytion-assessment' ),
@@ -70,7 +70,7 @@ add_action( 'init', 'bytion_register_cpt_books' );
 function bytion_register_taxonomy_book_category() {
 
 	$labels = array(
-		"name" => __( 'BOOK CATEGORIES', 'bytion-assessment' ),
+		"name" => __( 'BOOK CATEGORY', 'bytion-assessment' ),
 		"singular_name" => __( 'BOOK CATEGORY', 'bytion-assessment' ),
 	);
 

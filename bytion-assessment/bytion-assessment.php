@@ -12,6 +12,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+define ( 'BYTION_VERSION', '2.0');
 
 // load plugin text domain
 function bytion_init() { 
@@ -39,7 +40,10 @@ function bytion_get_the_ip() {
 
 // include form and cpt files
 include 'bytion-form-create-db.php';
+include 'bytion-form-admin.php';
 include 'bytion-form.php';
 include 'bytion-cpt.php';
+
+new Bytion_Main_Page();
 
 ?>

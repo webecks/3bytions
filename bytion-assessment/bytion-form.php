@@ -28,9 +28,9 @@ function bytion_form_shortcode($bytion_atts) {
 	$sent = false;
 	$fail = false;
 	$info = '';
-
-	if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['bytion_send']) ) {
 	
+	if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['bytion_send']) ) {
+
 		// Sanitize content
 		$post_data = array(
 			'form_name' => sanitize_text_field($_POST['bytion_name']),
@@ -97,12 +97,10 @@ function bytion_form_shortcode($bytion_atts) {
 	$email_form = '<form class="bytion" id="bytion" method="post">
 		<p><label for="bytion_name">'.esc_attr($bytion_atts['label_name']).': </label></p>
 		<p><span class="'.(isset($error_class['form_name']) ? "error" : "hide").'" >'.esc_attr($bytion_atts['error_name']).'</span><p>
-		<p><input type="text" name="bytion_name" placeholder="Enter Name" id="bytion_name" '.(isset($error_class['form_name']) ? ' class="error"' : '').' maxlength="50" value="'.esc_attr($form_data['form_name']).'" /></p>
-		
+		<p><input type="text" name="bytion_name" placeholder="Enter Name" id="bytion_name" '.(isset($error_class['form_name']) ? ' class="error"' : '').' maxlength="50" value="'.esc_attr($form_data['form_name']).'" /></p>		
 		<p><label for="bytion_email">'.esc_attr($bytion_atts['label_email']).': </label></p>
 		<p><span class="'.(isset($error_class['form_email']) ? "error" : "hide").'" >'.esc_attr($bytion_atts['error_email']).'</span></p>
-		<p><input type="text" name="bytion_email" placeholder="Enter Email" id="bytion_email" '.(isset($error_class['form_email']) ? ' class="error"' : '').' maxlength="50" value="'.esc_attr($form_data['form_email']).'" /></p>
-		
+		<p><input type="text" name="bytion_email" placeholder="Enter Email" id="bytion_email" '.(isset($error_class['form_email']) ? ' class="error"' : '').' maxlength="50" value="'.esc_attr($form_data['form_email']).'" /></p>		
 		<p><input type="submit" value="'.esc_attr($bytion_atts['label_submit']).'" name="bytion_send" id="bytion_send" /></p>
 	</form>';
 	
@@ -125,11 +123,13 @@ function bytion_save_db($form_data) {
 
 	$form_name		= esc_attr($form_data['form_name']);
 	$form_email   = esc_attr($form_data['form_email']);
+	$form_time   	= current_time('Y-m-d H:i:s');
 	$table_name 	= $wpdb->prefix . 'bytion_form';
 
 	$wpdb->insert( $table_name, array( 
 			'form_name'		=> $form_name,
-			'form_email'  => $form_email
+			'form_email'  => $form_email,
+			'form_time'		=> $form_time
 	) );
 }
 ?>
